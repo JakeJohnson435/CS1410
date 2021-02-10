@@ -10,20 +10,8 @@
 //our driver class for testing
 public class Shapes
 {
-    public static void main(String[] args)
-    {
-        Point p1 = new Point(3, 5);
-        Point p2 = new Point(5, 7);
-        Line l1 = new Line(p1, p2);
-        l1.showLine();
-    }
+
 }
-
-//create a class point with x and y coordinates
-
-//add appropriate getters, setters, and constructors
-
-//add a print method
 
 class Point
 {
@@ -40,26 +28,64 @@ class Point
         return y;
     }
 
+    //limits the x for a point.
     public void setX(int x){
-        this.x = x;
+        if (x < 0){
+            this.x = 0;
+        } else {
+            this.x = x;
+        }
+
+        if (x > 10){
+            this.x = 10;
+        } else {
+            this.x = x;
+        }
     }
 
+    //limits the y for a point.
     public void setY(int y){
-        this.y = y;
+        if (y < 0){
+            this.y = 0;
+        } else {
+            this.y = y;
+        }
+
+        if (y > 10){
+            this.y = 10;
+        } else {
+            this.y = y;
+        }
     }
 
+    //default constructor.
     public Point(){
         x=0;
         y=0;
-        count++;
     }
 
+    //limiting the area the points can be to between 0 and 10 is done here when creating a point.
     public Point(int x, int y){
-        this.x = x;
-        this.y = y;
-        count++;
+        if (x < 0){
+            this.x = 0;
+        } else if(x > 10){
+            this.x = 10;
+        } else {
+            this.x = x;
+        }
+
+        if (y < 0){
+            this.y = 0;
+        } else if (y > 10){
+            this.y = 10;
+        } else {
+            this.y = y;
+        }
+
+
     }
 
+    //prints out the location of the point given.
     public void showPoint(){
         System.out.println("x = " + x + "\ny = " + y);
     }
@@ -82,20 +108,6 @@ class Point
     }
 }
 
-//create a class line made up of two points
-
-//create private instance variables for upper and lower x and y bounds
-
-//add appropriate getters, and setters
-
-//add point constructors and 4 int constructors
-
-//add a isLine method to make sure it is a legitimate line
-
-//if a user tries to make a line that is not a valid line based on values and on bounds
-//set points to null
-
-//add a print method
 class Line
 {
     private Point p1;
@@ -118,43 +130,66 @@ class Line
     }
 
     public Line(){
-        p1 = new Point();
-        p2 = new Point();
+        p1 = new Point(1, 1);
+        p2 = new Point(1, 3);
     }
 
+    //Since the points are limited above, they wont be able to go out of bounds here.
     public Line(Point p1, Point p2){
         this.p1 = p1;
         this.p2 = p2;
     }
 
+    //This uses points to make a line instead of putting each coordinate in individually.
     public Line(int x1, int y1, int x2, int y2){
         p1 = new Point(x1, y1);
         p2 = new Point(x2, y2);
     }
 
     public void showLine(){
+
         p1.showPoint();
         p2.showPoint();
     }
 
+    //returns true as long as the points do not equal each other, because that would just be a point.
+    public static boolean isLine(Line l1){
+
+        boolean line = false;
+
+        if (l1.p1.getX() != l1.p2.getX() && l1.p1.getY() != l1.p2.getY()){
+            line = true;
+        }
+
+        return line;
+    }
+
+    public boolean isLine(){
+
+        if (p1.getX() == p2.getX() && p1.getY() == p2.getY()){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public int lineLength(){
+
+        int length = 0;
+
+        if (p1.getX() == p2.getX()){
+            length = p2.getY() - p1.getY();
+        } else {
+            length = p2.getX() - p1.getX();
+        }
+
+        return length;
+
+    }
+
+
+
 }
-
-//Demonstrate static vs dynamic methods
-
-//create a class square made up of 4 lines
-
-//add bounds for the square
-
-//add appropriate getters, and setters
-
-//add point and line constructors
-
-//add a isSquare method to make sure it is a legitimate square
-
-//if a user tries to make a square that is not a valid square based on values and on bounds
-//set points to null
-
-//add a print method
 
 class Square
 {
@@ -230,10 +265,10 @@ class Square
     }
 
     public Square (){
-        l1 = new Line();
-        l2 = new Line();
-        l3 = new Line();
-        l4 = new Line();
+        l1 = new Line(1, 1, 1, 3);
+        l2 = new Line(1, 3, 3, 3);
+        l3 = new Line(3, 3, 3, 1);
+        l4 = new Line(3, 1, 1, 1);
     }
 
     public Square(Line l1, Line l2, Line l3, Line l4){
@@ -241,6 +276,74 @@ class Square
         this.l2 = l2;
         this.l3 = l3;
         this.l4 = l4;
+    }
+
+    public static boolean isSquare(Square s1){
+
+        boolean square = true;
+
+
+        if (s1.l1.getP2().getX() != s1.l2.getP1().getX() && s1.l1.getP2().getY() != s1.l2.getP1().getY()){
+            square = false;
+        }
+
+        if (s1.l2.getP2().getX() != s1.l3.getP1().getX() && s1.l2.getP2().getY() != s1.l3.getP1().getY()){
+            square = false;
+        }
+
+        if (s1.l3.getP2().getX() != s1.l4.getP1().getX() && s1.l3.getP2().getY() != s1.l4.getP1().getY()){
+            square = false;
+        }
+
+        if (s1.l4.getP2().getX() != s1.l1.getP1().getX() && s1.l4.getP2().getY() != s1.l1.getP1().getY()){
+            square = false;
+        }
+
+        return square;
+    }
+
+    public boolean isSquare(){
+
+        boolean square = true;
+
+
+        if (l1.getP2().getX() != l2.getP1().getX() && l1.getP2().getY() != l2.getP1().getY()){
+            square = false;
+        }
+
+        if (l2.getP2().getX() != l3.getP1().getX() && l2.getP2().getY() != l3.getP1().getY()){
+            square = false;
+        }
+
+        if (l3.getP2().getX() != l4.getP1().getX() && l3.getP2().getY() != l4.getP1().getY()){
+            square = false;
+        }
+
+        if (l4.getP2().getX() != l1.getP1().getX() && l4.getP2().getY() != l1.getP1().getY()){
+            square = false;
+        }
+
+        return square;
+    }
+
+    public void showSquare(){
+        System.out.println("Line 1 is");
+        l1.showLine();
+        System.out.println("Line 2 is");
+        l2.showLine();
+        System.out.println("Line 3 is");
+        l3.showLine();
+        System.out.println("Line 4 is");
+        l4.showLine();
+    }
+
+    public double squareArea(){
+
+        if (isSquare()) {
+            return l1.lineLength() * 4;
+        } else {
+            return -1;
+        }
     }
 
 
