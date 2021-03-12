@@ -29,7 +29,7 @@ public class classDemo
         //Let's make an instance of the character class
         //Make note by convention class names are capitalized
 
-        Character c1 = new Character();
+        CharacterOld c1 = new CharacterOld();
 
 //        Character c5 = new Character("bob", 5, 5, 10);
 
@@ -50,7 +50,7 @@ public class classDemo
         //The entire point of this is that we can now create more and more characters
         //Create a different character using a different variable name
 
-        Character c2 = new Character();
+        CharacterOld c2 = new CharacterOld();
 
         c2.setName("Lo'i Arsana");
         System.out.println(c2.getName());

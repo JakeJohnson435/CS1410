@@ -18,8 +18,8 @@ public class Driver {
             System.out.println("Greetings " + name + ". Would you like to enter your stats? (y/n)");
             char answer = sc.nextLine().charAt(0);
 
-            Character c1;
-            Character c2 = null;
+            CharacterOld c1;
+            CharacterOld c2 = null;
 
             if (answer == 'y' || answer == 'Y') {
                 System.out.println("Enter your hit points (max of 99)");
@@ -28,10 +28,10 @@ public class Driver {
                 System.out.println("Enter your strength (max of 10)");
                 int strength = Integer.parseInt(sc.nextLine());
 
-                c1 = new Character(name, hitPoints, strength);
+                c1 = new CharacterOld(name, hitPoints, strength);
                 c1.showStats();
             } else {
-                c1 = new Character(name);
+                c1 = new CharacterOld(name);
                 c1.showStats();
             }
 
@@ -42,16 +42,16 @@ public class Driver {
             boolean fight = true;
 
             if (difficulty.equalsIgnoreCase("easy") || difficulty.equalsIgnoreCase("e")) {
-                c2 = new Character();
+                c2 = new CharacterOld();
                 System.out.println("You will be fighting: " + c2.getName());
                 c2.showStats();
             } else if (difficulty.equalsIgnoreCase("medium") || difficulty.equalsIgnoreCase("m")) {
-                c2 = new Character("Bugbear", 45, 5);
+                c2 = new CharacterOld("Bugbear", 45, 5);
                 System.out.println("You will be fighting: " + c2.getName());
                 c2.showStats();
             } else if (difficulty.equalsIgnoreCase("hard") || difficulty.equalsIgnoreCase("h")){
                 System.out.println("Oh you want a challenge? \nYou will be fighting Rowan.");
-                c2 = new Character("Rowan", 80, 8);
+                c2 = new CharacterOld("Rowan", 80, 8);
                 c2.showStats();
             } else {
                 System.out.println("Too scared huh? Come back later");

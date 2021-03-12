@@ -1,97 +1,94 @@
-//3. 
-//Here we'll create a class to use in our driver class
+//Character class object. Inherits from Thing class
+//Dr. G
+//10-5-18
+//Edited 2-17-19
+//Edited 2-27-20
 
-//This class doesn't have a main. Can it be compiled?
-//Can it be executed?
+//This class represents a character in our game. It could be a good guy, bad guy, or just an NPC
+//What other things would a character need?
+//Draw this on class object on the board and show the relationship it has with thing. 
+//What is this type of inheritance called?
 
-public class Character
+abstract public class Character extends Thing
 {
+    protected int hitPoints;
+    protected int strength;
 
+    protected enum STATUS {DEAD, ALIVE};
+    protected STATUS status;
 
-    private String name;
-    private int strength;
-    private int hitPoints;
-    private boolean alive;
-
-    public String nic;
-
-	public void setName(String name)
-	{
-	    this.name = name;
-	}
-
-	public String getName() {
-
-	    return name;
-
-    }
-
-    public void setHitPoints(int hitPoints){
-
-	    if (hitPoints > 99){
-	        this.hitPoints = 99;
-        } else {
-	        this.hitPoints = hitPoints;
-        }
-
-    }
-
-    public void setStrength(int strength){
-	    if (strength > 10){
-	        this.strength = 10;
-        } else {
-	        this.strength = strength;
-        }
-    }
-
-    public int getStrength(){
-	    return strength;
-    }
-
-    public int getHitPoints(){
-	    return hitPoints;
-    }
-
-    public void showStats() {
-
-        System.out.println("Strength is: " + strength + "\nHitPoints are: " + hitPoints);
-
-    }
-
-    public int takeDamage(int Damage){
-	    return this.hitPoints = this.hitPoints - Damage;
-    }
-
+    //What happens if you don't have a no argument object constructor
     public Character()
     {
-        name = "Goblin";
-        hitPoints = 10;
-        strength = 2;
-        alive = true;
+        //Children do not inherit constructors
+        //Call the base class no argument constructor first using "super"
+        hitPoints = 0;
+        strength = 0;
     }
 
-    public boolean isAlive(){
-	    return this.alive;
-    }
+    //Comment out both constructors and watch what happens.
 
-    public void setStatus(boolean status){
-	    this.alive = status;
-    }
-
-    public Character(String name)
+    //a more complete constructor
+    public Character(String name, Field f1, int hitPoints, int strength)
     {
+        //These aren't instance variables we created?
+        //Could we replace these with a super constructor?
         this.name = name;
-        hitPoints = 10;
-        strength = 2;
-        alive = true;
+//        this.name = name;
+
+        //Character's instances
+        this.hitPoints = hitPoints;
+        this.strength = strength;
+        status = STATUS.ALIVE;
     }
 
-    public Character(String name, int hitPoints, int strength)
+    //This constructor only addresses the subclass variables. What happens to the
+    //inherited variables? How can we make sure the inherited variables have default values?
+    public Character(int hitPoints, int strength)
     {
-        this.name = name;
-        setHitPoints(hitPoints);
-        setStrength(strength);
-        alive = true;
+        this.hitPoints = hitPoints;
+        this.strength = strength;
+        status = STATUS.ALIVE;
     }
 
+    //We'll need some getters for later use, but we'll "set" with damage and heal methods.
+    //There's nothing magic about getters and setters. You can call them whatever you want.
+    public int getHitPoints()
+    {return hitPoints;}
+
+    public int getStrength()
+    {return strength;}
+
+    //So we can test our creation
+    public void showStats()
+    {
+        System.out.printf("Name: %s%n Hit Points: %d%n Strength: %d%n X = %d y = %d%n", name, hitPoints, strength, x, y );
+    }
+
+    //Check to see if the character still alive?
+    public boolean isAlive()
+    {
+        if (status==STATUS.DEAD) return false;
+        else return true;
+    }
+
+    //Destroy the character and move him off the grid
+    public void destroyCharacter()
+    {
+        x= -1;
+        y= -1;
+        status = STATUS.DEAD;
+    }
+
+    public void takeDamage(int damage){
+        hitPoints-=damage;
+
+        if (hitPoints <= 0){
+            status = STATUS.DEAD;
+        }
+    }
+
+    //Compile this file.
+    //What's the problem and how do we fix it?
+    //MOVE TO HERO FILE
 }
